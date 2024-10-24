@@ -40,27 +40,37 @@ class StudentController extends Controller
 
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
+        // Find the student by ID
         $student = Student::find($id);
-        
+
+        // Check if the student exists
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        $validated = $request->validate([
-            'nama' => 'sometimes|required|string|max:255',
-            'nim' => 'sometimes|required|string|max:20|unique:students,nim,' . $id,
-            'email' => 'sometimes|required|email|unique:students,email,' . $id,
-            'jurusan' => 'sometimes|required|string|max:100',
-        ]);
+        // Only update fields that are provided in the request
+        if ($request->has('nama')) {
+            $student->nama = $request->input('nama');
+        }
+        if ($request->has('nim')) {
+            $student->nim = $request->input('nim');
+        }
+        if ($request->has('email')) {
+            $student->email = $request->input('email');
+        }
+        if ($request->has('jurusan')) {
+            $student->jurusan = $request->input('jurusan');
+        }
 
-        $student->update($validated);
+        // Save the updated student data
+        $student->save();
 
-        return response()->json([
-            'message' => 'Student data updated successfully',
-            'data' => $student
-        ], 200);
+        // Return response
+        return response()->json(['message' => 'Student updated successfully', 'student' => $student], 200);
     }
+
 
     public function destroy($id) {
         $student = Student::find($id);
