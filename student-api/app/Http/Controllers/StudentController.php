@@ -42,15 +42,15 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Find the student by ID
+        // Mengambil data student terlebih dahulu
         $student = Student::find($id);
 
-        // Check if the student exists
+        // Mengecek apabila data tidak ada akan mengirimkan respons not found
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        // Only update fields that are provided in the request
+        
         if ($request->has('nama')) {
             $student->nama = $request->input('nama');
         }
@@ -64,10 +64,10 @@ class StudentController extends Controller
             $student->jurusan = $request->input('jurusan');
         }
 
-        // Save the updated student data
+        
         $student->save();
 
-        // Return response
+        
         return response()->json(['message' => 'Student updated successfully', 'student' => $student], 200);
     }
 
