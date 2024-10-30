@@ -101,4 +101,23 @@ class StudentController extends Controller
         }
     }
 
+    public function show($id) {
+        $student = Student::find($id);
+
+        if($student){
+            $data = [
+                'message' => 'Detail of Student data',
+                'data'  => $student
+            ];
+
+            return response()->json($data, 200);
+        }
+        else {
+            $data = [
+                'message' => 'Student not found'
+            ];
+            return response()->json($data, 404);
+        }
+    }
+
 }
