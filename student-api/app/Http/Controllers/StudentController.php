@@ -101,6 +101,7 @@ class StudentController extends Controller
         }
     }
 
+    # Membuat fungsi show untuk menampilkan detail dari data student berdasarkan id-nya
     public function show($id) {
         $student = Student::find($id);
 
