@@ -11,16 +11,46 @@ class StudentController extends Controller
     public function index(){
         $students = Student::all();
 
-        $data = [
-            'message'=>'Get all students data',
-            'data'=>$students
-        ];
+        if ($student) {
+            $data = [
+                'message'=>'Get all students data',
+                'data'=>$students
+            ];
+            return response()->json($data, 200);
+        }
+        else {
+            $data = [
+                'message' => 'The student data is empty. Add the student first or check the databases.'
+            ];
 
-        return response()->json($data, 200);
+            return  response()->json($data, 404);
+        }
+        
 
     }
 
     public function store(Request $request){
+
+        $expectedFields = ['nama', 'nim', 'email', 'jurusan'];
+
+        // mengecek apakah variable request sudah sesuai
+        $inputKeys = array_keys($request->all());
+        $unexpectedKeys = array_diff($inputKeys, $expectedFields);
+    
+        if (!empty($unexpectedKeys)) {
+            return response()->json([
+                'message' => 'Unexpected fields: ' . implode(', ', $unexpectedKeys),
+            ], 400);
+        }
+    
+        // mengecek apabila ada field yang belum diisi
+        foreach ($expectedFields as $field) {
+            if (!$request->has($field)) {
+                return response()->json([
+                    'message' => "The field '$field' is required and must be spelled correctly.",
+                ], 400);
+            }
+        }
 
         $input = [
             'nama'=>$request->nama,
@@ -31,13 +61,17 @@ class StudentController extends Controller
 
         $student = Student::create($input);
 
-        $data = [
-            'message'=>'Student data is create successfully',
-            'data'=>$student,
-        ];
-
-        return response()->json($data, 201);
-
+        if ($student) {
+            return response()->json([
+                'message' => 'Student data created successfully',
+                'data' => $student,
+            ], 201);
+        } else {
+            
+            return response()->json([
+                'message' => 'Failed to create student data',
+            ], 500);
+        }
     }
 
     public function update(Request $request, $id)
