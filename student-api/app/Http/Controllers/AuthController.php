@@ -21,7 +21,8 @@ class AuthController extends Controller
         $user = User::create($input);
 
         $data = [
-            'message' => 'Register is complete, user is created'
+            'message' => 'Register is complete, user is created',
+            'user' => $user
         ];
 
         // Mengirim response json
