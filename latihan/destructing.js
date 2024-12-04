@@ -12,7 +12,7 @@ const user = {
 const {nama , umur, alamat} = user;
 console.log(nama, umur, alamat);
 
-const family = ["Mikel","Julie", "Ethan", "Donna"];
+const family = ["Jim","Tabitha", "Julie", "Ethan"];
 
 // const husband = family[0];
 // const wife = family[1];
