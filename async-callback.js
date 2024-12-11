@@ -1,6 +1,7 @@
 // Memasak mie menggunakan callback async
 
 const persiapan = () => {
+    console.log("Membeli mie ...");
     console.log("Mempersiapkan Bahan...");
 };
 const rebusAir = () => {

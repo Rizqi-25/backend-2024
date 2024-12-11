@@ -21,7 +21,7 @@
 
 // producing promise
 const persiapan = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         resolve("Persiapan...");
       }, 3000);
