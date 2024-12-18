@@ -8,6 +8,11 @@ const app = express();
 //     res.send("Hello Baby!");
 // });
 
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded());
+
+// Route
 app.use(router);
 
 app.listen(3000);

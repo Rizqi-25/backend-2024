@@ -1,18 +1,42 @@
 
 class StudentController {
     index(req, res) {
-        res.send("Menampilkan semua data mahasiswa");
+        const data = {
+            message: "Menampilkan semua data mahasiswa",
+            data: ["Muhammad Rizqi", "Mira", "Rere"],
+        };
+        // res.send("Menampilkan semua data mahasiswa");
+        
+        res.json(data);
     }
+
     store(req, res) {
-        res.send("Menambahkan data mahasiswa");
-    }
+        const { nama } = req.body;
+        const data = {
+            message: `Menambahkan data mahasiswa: ${nama} `,
+            data: [],
+        };
+        // res.send(`Menambahkan data mahasiswa: ${nama} `);
+        res.json(data);
+    }   
     update(req, res) {
         const {id} = req.params;
-        res.send(`Mengupdate data mahasiswa id ${id}`);
+        const { nama } = req.body;
+        const data = {
+            message: `Mengupdate data mahasiswa id ${id}, nama ${nama}`,
+            data: [],
+        };
+        // res.send(`Mengupdate data mahasiswa id ${id}, nama ${nama}`);
+        res.json(data);
     }
     destroy(req, res) {
         const {id} = req.params;
-        res.send(`Menghapus data mahasiswa ida ${id}`);
+        const data = {
+            message: `Menghapus data mahasiswa ida ${id}`,
+            data: [],
+        };
+        // res.send(`Menghapus data mahasiswa ida ${id}`);
+        res.json(data);
     }
 }
 
